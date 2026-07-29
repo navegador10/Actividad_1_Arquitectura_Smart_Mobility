@@ -78,6 +78,25 @@ Los requisitos no funcionales constituyen atributos de calidad que condicionan l
 
 ### 3.1. Identificación de Actores
 
+Los actores del sistema se clasifican en tres categorías principales:
+
+#### Actores Humanos (Usuarios)
+- **Usuario Conductor:** Conductor de vehículo particular que utiliza el sistema para obtener rutas óptimas y recibir alertas de tráfico.
+- **Usuario Peatón:** Peatón que consulta información de movilidad urbana, rutas peatonales y estado de vías.
+- **Operador del Centro de Control:** Personal encargado de monitorear el sistema, confirmar alertas y configurar parámetros operacionales.
+- **Administrador del Sistema:** Usuario con privilegios para gestionar usuarios, configurar sistema y mantener infraestructura.
+
+#### Actores Hardware/Sistemas (Sensores y Dispositivos)
+- **Sensor de Flujo Vehicular:** Dispositivo IoT que mide volumen y velocidad de vehículos en tiempo real.
+- **Sensor Ambiental:** Sensor que monitora condiciones climáticas y ambientales (temperatura, humedad, calidad del aire).
+- **Cámaras de Tráfico:** Sistemas de visión artificial para detección visual de incidentes y monitoreo de flujo.
+- **Semáforo Inteligente:** Actuador IoT que ajusta tiempos de semaforización según condiciones de tráfico.
+
+#### Actores Sistemas Externos
+- **Servicios de Mapas:** APIs externas (Google Maps, OpenStreetMap) para geocodificación y enrutamiento base.
+- **Pasarelas Meteorológicas:** Sistemas externos que proporcionan datos climáticos precisos.
+- **Sistemas de Emergencia:** Servicios institucionales de emergencias para integración de alertas críticas.
+
 ### 3.2. Funcionalidades Principales
 - Monitoreo en tiempo real de la red vial mediante ingestión continua de datos IoT.
 - Control adaptativo de semáforos basado en inteligencia de tráfico local y global.
@@ -106,6 +125,22 @@ Los requisitos no funcionales constituyen atributos de calidad que condicionan l
 "Ningún sistema puede ser descrito adecuadamente mediante una única representación. Las vistas arquitectónicas permiten descomponer la complejidad del sistema en diferentes dimensiones, facilitando su análisis y comprensión" (Kruchten, 1995; adaptado del módulo, p. 60).
 
 A continuación se presentan las vistas solicitadas, fundamentadas en el modelo 4+1 de Kruchten y en los diagramas UML estandarizados (Jacobson, Booch & Rumbaugh, 1999).
+
+### Convenciones de Notación para Diagramas
+
+**Símbolos utilizados en diagramas Mermaid:**
+- `-->` : Flujo de datos o comunicación unidireccional
+- `-.->` : Dependencia o relación indirecta
+- `-->>` : Retorno de datos o respuesta
+- `subgraph` : Agrupación de componentes relacionados
+- `[ ]` : Componentes o nodos del sistema
+- `( )` : Base de datos o almacenamiento
+- emojis (🎨, ⚙️, 📡, etc.) : Identificación visual de dominios/capas
+
+**Tipos de diagramas:**
+- `flowchart TB` : Diagrama de flujo (Top-Bottom) para arquitectura estática
+- `graph TD` : Grafo dirigido (Top-Down) para relaciones estructurales
+- `sequenceDiagram` : Diagrama de secuencia para interacciones temporales
 
 ### 4.1. Vista Conceptual (Diagrama de Contexto / Gran Fotografía)
 
@@ -156,6 +191,12 @@ flowchart TB
 - Separación clara entre dominios de responsabilidad (usuarios, sensores, lógica central, externos).
 - El sistema central actúa como orquestador, desacoplando sensores y servicios externos del usuario final.
 - Se establecen interfaces externas estandarizadas (APIs REST) para garantizar interoperabilidad (RNF-06).
+
+**Leyenda del diagrama:**
+- **DominiosUsuarios**: Actores humanos que interactúan con el sistema
+- **DominiosSensores**: Dispositivos IoT que generan datos de tráfico
+- **DominiosCentral**: Sistema core que procesa y orquesta
+- **DominiosExternos**: Servicios de terceros integrados al sistema
 
 ### 4.2. Vista de Casos de Uso (Escenarios)
 
@@ -278,6 +319,14 @@ flowchart TB
 - **Procesamiento de eventos (Kafka/Flink):** Desacopla la ingestión masiva de sensores del procesamiento de negocio, garantizando tolerancia a fallos (RNF-05) y rendimiento (RNF-02).
 - **Separación de bases de datos especializadas:** Time-Series para métricas IoT, Relacional para datos transaccionales, Cache para rutas frecuentes.
 
+**Leyenda del diagrama:**
+- **UI**: Capa de interfaz de usuario (móvil, web, admin)
+- **API**: Gateway y capa de seguridad
+- **CORE**: Módulos de negocio principales
+- **ANALYTICS**: Componentes de análisis predictivo
+- **INTEGRATION**: Adaptadores para sistemas externos
+- **DATA**: Capa de procesamiento y persistencia de datos
+
 ### 4.4. Vista de Procesos (Comportamiento Dinámico)
 
 **Propósito:** Describir el comportamiento dinámico del sistema, especialmente en términos de concurrencia, sincronización, interacción temporal y coordinación entre procesos o servicios (Kruchten, 1995; módulo, p. 105-108). Responde a: ¿Cómo interactúan los componentes en tiempo de ejecución?
@@ -321,6 +370,151 @@ sequenceDiagram
 - **Persistencia transaccional:** La alerta se almacena antes de notificar (paso 10), garantizando trazabilidad y no repudio (RNF-04).
 - **Tolerancia a fallos parciales:** Si la App Móvil no recibe el push, la alerta permanece en el Centro de Control gracias al desacoplamiento.
 
+### 4.5. Vista de Desarrollo/Implementación (Organización del Código)
+
+**Propósito:** Describir la organización del código fuente, dependencias entre módulos, configuración de build y gestión de versiones (Kruchten, 1995; módulo, p. 108-110). Responde a: ¿Cómo está estructurado el código y cómo se gestiona su desarrollo?
+
+```mermaid
+graph TD
+    subgraph REPOS["📁 Repositorios Git"]
+        R1[smart-mobility-frontend]
+        R2[smart-mobility-backend]
+        R3[smart-mobility-iot-gateway]
+        R4[smart-mobility-infrastructure]
+    end
+
+    subgraph FRONTEND["🎨 Frontend React Native TypeScript"]
+        F1[Componentes UI]
+        F2[Services API]
+        F3[State Management Redux]
+        F4[Navigation React]
+    end
+
+    subgraph BACKEND["⚙️ Backend Node.js TypeScript"]
+        B1[API Gateway Express]
+        B2[Microservicios NestJS]
+        B3[Event Handlers Kafka]
+        B4[ML Models Python]
+    end
+
+    subgraph IOT["📡 IoT Gateway Java Kotlin"]
+        I1[MQTT Broker Mosquitto]
+        I2[Edge Processing]
+        I3[Device Management]
+    end
+
+    subgraph INFRA["🔧 Infrastructure as Code"]
+        I[1 Docker Compose Dev]
+        I[2 Kubernetes Prod]
+        I[3 Terraform Cloud]
+        I[4 CI CD GitHub Actions]
+    end
+
+    R1 --> FRONTEND
+    R2 --> BACKEND
+    R3 --> IOT
+    R4 --> INFRA
+
+    FRONTEND -->|npm install| B2
+    BACKEND -->|npm run build| I[2]
+    IOT -->|gradle build| I[2]
+    INFRA -->|terraform apply| I[2]
+```
+
+**Decisiones de desarrollo:**
+- **Monorepo vs. Multirepo:** Se adopta estrategia multirepo para separar responsabilidades: frontend, backend, IoT gateway e infraestructura, permitiendo ciclos de release independientes (RNF-07).
+- **Tecnologías por capa:** TypeScript para consistencia type-safe entre frontend y backend; Python para modelos de ML; Java/Kotlin para edge computing en gateways IoT.
+- **CI/CD:** GitHub Actions para automatizar testing, linting y despliegue; pipelines separados por repositorio con triggers de release semánticos.
+- **Gestión de dependencias:** npm para ecosistema JavaScript/TypeScript; gradle para IoT; pip para modelos ML; control de versiones via semantic versioning.
+
+**Leyenda del diagrama:**
+- **REPOS**: Estructura de repositorios Git
+- **FRONTEND**: Aplicación móvil React Native/TypeScript
+- **BACKEND**: Servicios backend Node.js/TypeScript y Python
+- **IOT**: Gateway IoT Java/Kotlin para dispositivos
+- **INFRA**: Configuración de infraestructura como código
+
+### 4.6. Vista Física/Despliegue (Infraestructura de Producción)
+
+**Propósito:** Describir la topología de hardware, nodos de computación, configuración de red y distribución de componentes en la infraestructura física o cloud (Kruchten, 1995; módulo, p. 111-113). Responde a: ¿Dónde se ejecutan los componentes y cómo se comunican?
+
+```mermaid
+graph TB
+    subgraph EDGE["🏙️ Edge Computing Urbano"]
+        E1[Gateways IoT LoRaWAN 5G]
+        E2[Semáforos Inteligentes]
+        E3[Cámaras de Tráfico]
+    end
+
+    subgraph CLOUD_REGION["☁️ Cloud Region AWS us-east-1"]
+        subgraph VPC_PUBLIC["🌐 VPC Public Subnets"]
+            LB[Application Load Balancer]
+            CDN[CloudFront CDN]
+            API[API Gateway Public]
+        end
+
+        subgraph VPC_PRIVATE["🔒 VPC Private Subnets"]
+            subgraph K8S_CLUSTER["🐳 Kubernetes EKS"]
+                POD1[Frontend Pods]
+                POD2[Backend Microservices]
+                POD3[Stream Processors]
+            end
+
+            subgraph DATA_LAYER["💾 Data Layer"]
+                RDS[(PostgreSQL Multi AZ)]
+                INFLUX[(InfluxDB Cluster)]
+                REDIS[(ElastiCache Redis)]
+            end
+
+            subgraph MESSAGING["📨 Messaging Layer"]
+                KAFKA[MSK Kafka Cluster]
+                SQS[SQS Queues]
+            end
+        end
+    end
+
+    subgraph MONITORING["📊 Monitoring & Logging"]
+        PROM[Prometheus Grafana]
+        CW[CloudWatch Logs]
+        XRAY[X-Ray Tracing]
+    end
+
+    EDGE -->|MQTT over TLS| KAFKA
+    E2 -->|HTTP API| API
+    E3 -->|RTSP Stream| POD3
+
+    CDN -->|HTTPS| LB
+    LB -->|Target Groups| POD1
+    API -->|REST gRPC| POD2
+
+    POD2 -->|Connection Pool| RDS
+    POD2 -->|Time Series| INFLUX
+    POD2 -->|Cache| REDIS
+    POD3 -->|Producer Consumer| KAFKA
+    POD3 -->|DLQ| SQS
+
+    POD1 -->|Metrics| PROM
+    POD2 -->|Logs| CW
+    POD2 -->|Traces| XRAY
+```
+
+**Decisiones de despliegue:**
+- **Edge Computing:** Gateways IoT procesan datos localmente para reducir latencia y ancho de banda, enviando solo eventos relevantes al cloud (RNF-02).
+- **Cloud-native:** Kubernetes (EKS) para orquestación de contenedores, permitiendo escalabilidad automática basada en métricas de tráfico (RNF-03).
+- **Alta disponibilidad:** Multi-AZ deployment, load balancers, bases de datos con replicación y failover automático (RNF-01, RNF-05).
+- **Seguridad por capas:** VPC con subnets públicas/privadas, security groups, WAF, y comunicación cifrada end-to-end (RNF-04).
+- **Observabilidad:** Stack completo de monitoring (Prometheus/Grafana), logging centralizado (CloudWatch) y tracing distribuido (X-Ray).
+
+**Leyenda del diagrama:**
+- **EDGE**: Dispositivos IoT y gateways en locaciones urbanas
+- **CLOUD_REGION**: Infraestructura cloud en región AWS específica
+- **VPC_PUBLIC**: Subnets públicas para componentes accesibles externamente
+- **VPC_PRIVATE**: Subnets privadas para componentes internos seguros
+- **K8S_CLUSTER**: Cluster Kubernetes para orquestación de contenedores
+- **DATA_LAYER**: Servicios de bases de datos y almacenamiento
+- **MESSAGING**: Capa de mensajería y colas de eventos
+- **MONITORING**: Servicios de monitoreo, logging y tracing
+
 ---
 
 ## 5. Fase 4: Análisis Arquitectónico
@@ -336,7 +530,19 @@ La utilización de múltiples vistas permite:
 
 ### 5.2. ¿Qué representa cada vista?
 
-### 5.3. ¿Cómo se complementan?
+Cada vista arquitectónica proporciona una perspectiva específica del sistema, enfocada en las preocupaciones de diferentes stakeholders:
+
+- **Vista Conceptual (4.1):** Representa el contexto del sistema en su entorno operativo. Muestra los actores externos (usuarios, sensores, servicios) y sus relaciones de alto nivel con el sistema central. Es fundamental para analistas de negocio y stakeholders no técnicos para entender el alcance y límites del sistema.
+
+- **Vista de Casos de Uso (4.2):** Describe la funcionalidad del sistema desde la perspectiva de los usuarios. Define qué hace el sistema en términos de objetivos de negocio (monitorear tráfico, calcular rutas, generar alertas). Sirve como puente entre requisitos funcionales y diseño técnico.
+
+- **Vista Lógica (4.3):** Representa la estructura interna del sistema en términos de componentes, módulos y sus dependencias. Muestra cómo está organizado el código (microservicios, capas, bases de datos) y es esencial para desarrolladores y arquitectos de software.
+
+- **Vista de Procesos (4.4):** Describe el comportamiento dinámico y la interacción temporal entre componentes. Muestra flujos de ejecución, concurrencia, sincronización y manejo de eventos. Es crítica para entender aspectos no funcionales como rendimiento y tolerancia a fallos.
+
+- **Vista de Desarrollo/Implementación (4.5):** Representa la organización del código fuente, dependencias, herramientas de build y configuración de desarrollo. Es fundamental para equipos de desarrollo y DevOps para entender la estructura del proyecto y gestión de versiones.
+
+- **Vista Física/Despliegue (4.6):** Describe la topología de hardware, nodos de computación, configuración de red y distribución de componentes en infraestructura. Es esencial para administradores de sistemas y equipos de operaciones para entender el despliegue y escalabilidad.
 
 Las vistas no son diagramas aislados, sino representaciones complementarias que, en conjunto, describen el sistema de forma integral (módulo, p. 50, 72):
 
