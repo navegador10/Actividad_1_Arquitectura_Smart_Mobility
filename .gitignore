@@ -1,0 +1,44 @@
+# Archivos temporales
+*.tmp
+*.log
+contenido_completo.txt
+
+# Archivos de Office
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Archivos de Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de compilación
+dist/
+build/
+*.class
+*.jar
