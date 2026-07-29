@@ -159,6 +159,8 @@ flowchart TB
 
 ### 4.2. Vista de Casos de Uso (Escenarios)
 
+**Nota de visualización:** Los diagramas Mermaid incluidos en este documento requieren un visor compatible (como GitHub, GitLab, VS Code con extensión Mermaid, o herramientas como Mermaid Live Editor) para su correcta renderización. En visores de git que no soporten Mermaid, el diagrama aparecerá como código.
+
 **Propósito:** Articular las demás vistas mediante escenarios reales de uso. Conecta la arquitectura con la experiencia operativa de los actores y permite validar que la solución responde a los requerimientos funcionales y no funcionales (Kruchten, 1995, p. 60; módulo, p. 99).
 
 ```mermaid
