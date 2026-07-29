@@ -148,24 +148,24 @@ A continuación se presentan las vistas solicitadas, fundamentadas en el modelo 
 
 ```mermaid
 flowchart TB
-    subgraph DOMINIO_USUARIOS["🧑‍🤝‍🧑 Dominio: Usuarios"]
+    subgraph DOMINIO_USUARIOS["Dominio Usuarios"]
         A[Usuario Conductor]
         B[Usuario Peatón]
         C[Centro de Control]
     end
 
-    subgraph DOMINIO_SENSORES["📡 Dominio: Sensores Urbanos"]
+    subgraph DOMINIO_SENSORES["Dominio Sensores Urbanos"]
         D[Sensor de Flujo Vehicular]
         E[Sensor Ambiental]
         F[Cámaras de Tráfico]
         G[Semáforo Inteligente]
     end
 
-    subgraph DOMINIO_CENTRAL["🖥️ Dominio: Sistema Central"]
+    subgraph DOMINIO_CENTRAL["Dominio Sistema Central"]
         H[Sistema Inteligente de Movilidad Urbana]
     end
 
-    subgraph DOMINIO_EXTERNOS["🌐 Dominio: Servicios Externos"]
+    subgraph DOMINIO_EXTERNOS["Dominio Servicios Externos"]
         I[API de Mapas]
         J[Servicio Meteorológico]
         K[Sistema de Emergencias]
@@ -255,18 +255,18 @@ graph TD
 
 ```mermaid
 flowchart TB
-    subgraph UI["🎨 Interfaz de Usuario"]
+    subgraph UI["Interfaz de Usuario"]
         UI1[App Móvil React Native]
         UI2[Dashboard Web Centro de Control]
         UI3[Panel Administrativo]
     end
 
-    subgraph API["🔌 API Gateway / BFF"]
-        AP1[Gateway REST/GraphQL]
+    subgraph API["API Gateway BFF"]
+        AP1[Gateway REST GraphQL]
         AP2[Autenticación y Autorización]
     end
 
-    subgraph CORE["⚙️ Módulos de Negocio"]
+    subgraph CORE["Modulos de Negocio"]
         direction TB
         M1[Gestión de Tráfico]
         M2[Gestión de Semáforos]
@@ -276,20 +276,20 @@ flowchart TB
         M6[Administración]
     end
 
-    subgraph ANALYTICS["📊 Análisis Predictivo"]
-        A1[Motor de ML/Forecasting]
+    subgraph ANALYTICS["Analisis Predictivo"]
+        A1[Motor de ML Forecasting]
         A2[Agregador de Métricas]
     end
 
-    subgraph INTEGRATION["🔗 Integración Externa"]
+    subgraph INTEGRATION["Integración Externa"]
         I1[Adaptador Mapas]
         I2[Adaptador Clima]
         I3[Adaptador Emergencias]
-        I4[Gateway IoT / MQTT Broker]
+        I4[Gateway IoT MQTT Broker]
     end
 
-    subgraph DATA["💾 Procesamiento y Persistencia de Datos"]
-        D1[Stream Processor Kafka/Flink]
+    subgraph DATA["Procesamiento y Persistencia de Datos"]
+        D1[Stream Processor Kafka Flink]
         D2[Time-Series DB InfluxDB]
         D3[Base Relacional PostgreSQL]
         D4[Cache Redis]
@@ -376,38 +376,38 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    subgraph REPOS["📁 Repositorios Git"]
+    subgraph REPOS["Repositorios Git"]
         R1[smart-mobility-frontend]
         R2[smart-mobility-backend]
         R3[smart-mobility-iot-gateway]
         R4[smart-mobility-infrastructure]
     end
 
-    subgraph FRONTEND["🎨 Frontend React Native TypeScript"]
+    subgraph FRONTEND["Frontend React Native TypeScript"]
         F1[Componentes UI]
         F2[Services API]
         F3[State Management Redux]
         F4[Navigation React]
     end
 
-    subgraph BACKEND["⚙️ Backend Node.js TypeScript"]
+    subgraph BACKEND["Backend Node.js TypeScript"]
         B1[API Gateway Express]
         B2[Microservicios NestJS]
         B3[Event Handlers Kafka]
         B4[ML Models Python]
     end
 
-    subgraph IOT["📡 IoT Gateway Java Kotlin"]
+    subgraph IOT["IoT Gateway Java Kotlin"]
         I1[MQTT Broker Mosquitto]
         I2[Edge Processing]
         I3[Device Management]
     end
 
-    subgraph INFRA["🔧 Infrastructure as Code"]
-        I[1 Docker Compose Dev]
-        I[2 Kubernetes Prod]
-        I[3 Terraform Cloud]
-        I[4 CI CD GitHub Actions]
+    subgraph INFRA["Infrastructure as Code"]
+        I1[Docker Compose Dev]
+        I2[Kubernetes Prod]
+        I3[Terraform Cloud]
+        I4[CI CD GitHub Actions]
     end
 
     R1 --> FRONTEND
@@ -416,9 +416,9 @@ graph TD
     R4 --> INFRA
 
     FRONTEND -->|npm install| B2
-    BACKEND -->|npm run build| I[2]
-    IOT -->|gradle build| I[2]
-    INFRA -->|terraform apply| I[2]
+    BACKEND -->|npm run build| I2
+    IOT -->|gradle build| I2
+    INFRA -->|terraform apply| I2
 ```
 
 **Decisiones de desarrollo:**
@@ -440,40 +440,40 @@ graph TD
 
 ```mermaid
 graph TB
-    subgraph EDGE["🏙️ Edge Computing Urbano"]
+    subgraph EDGE["Edge Computing Urbano"]
         E1[Gateways IoT LoRaWAN 5G]
         E2[Semáforos Inteligentes]
         E3[Cámaras de Tráfico]
     end
 
-    subgraph CLOUD_REGION["☁️ Cloud Region AWS us-east-1"]
-        subgraph VPC_PUBLIC["🌐 VPC Public Subnets"]
+    subgraph CLOUD_REGION["Cloud Region AWS us-east-1"]
+        subgraph VPC_PUBLIC["VPC Public Subnets"]
             LB[Application Load Balancer]
             CDN[CloudFront CDN]
             API[API Gateway Public]
         end
 
-        subgraph VPC_PRIVATE["🔒 VPC Private Subnets"]
-            subgraph K8S_CLUSTER["🐳 Kubernetes EKS"]
+        subgraph VPC_PRIVATE["VPC Private Subnets"]
+            subgraph K8S_CLUSTER["Kubernetes EKS"]
                 POD1[Frontend Pods]
                 POD2[Backend Microservices]
                 POD3[Stream Processors]
             end
 
-            subgraph DATA_LAYER["💾 Data Layer"]
+            subgraph DATA_LAYER["Data Layer"]
                 RDS[(PostgreSQL Multi AZ)]
                 INFLUX[(InfluxDB Cluster)]
                 REDIS[(ElastiCache Redis)]
             end
 
-            subgraph MESSAGING["📨 Messaging Layer"]
+            subgraph MESSAGING["Messaging Layer"]
                 KAFKA[MSK Kafka Cluster]
                 SQS[SQS Queues]
             end
         end
     end
 
-    subgraph MONITORING["📊 Monitoring & Logging"]
+    subgraph MONITORING["Monitoring and Logging"]
         PROM[Prometheus Grafana]
         CW[CloudWatch Logs]
         XRAY[X-Ray Tracing]
