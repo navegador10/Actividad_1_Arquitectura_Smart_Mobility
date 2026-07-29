@@ -162,22 +162,22 @@ flowchart TB
 **Propósito:** Articular las demás vistas mediante escenarios reales de uso. Conecta la arquitectura con la experiencia operativa de los actores y permite validar que la solución responde a los requerimientos funcionales y no funcionales (Kruchten, 1995, p. 60; módulo, p. 99).
 
 ```mermaid
-useCaseDiagram
-    actor "Usuario (Conductor/Peatón)" as Usuario
-    actor "Centro de Control" as Centro
-    actor "Sistema de Sensores IoT" as Sensor
-    actor "Servicios Externos" as Externo
-    actor "App Móvil" as App
+graph TD
+    Usuario[Usuario (Conductor/Peatón)]
+    Centro[Centro de Control]
+    Sensor[Sistema de Sensores IoT]
+    Externo[Servicios Externos]
+    App[App Móvil]
 
-    rectangle "Sistema Inteligente de Movilidad Urbana" {
-        usecase "UC01: Monitorear tráfico en tiempo real" as UC01
-        usecase "UC02: Calcular ruta óptima" as UC02
-        usecase "UC03: Gestionar semáforos inteligentes" as UC03
-        usecase "UC04: Generar alerta de congestión/incidente" as UC04
-        usecase "UC05: Consultar estado de vías e intersecciones" as UC05
-        usecase "UC06: Administrar sensores y dispositivos IoT" as UC06
-        usecase "UC07: Integrar datos meteorológicos externos" as UC07
-    }
+    subgraph Sistema["Sistema Inteligente de Movilidad Urbana"]
+        UC01[UC01: Monitorear tráfico en tiempo real]
+        UC02[UC02: Calcular ruta óptima]
+        UC03[UC03: Gestionar semáforos inteligentes]
+        UC04[UC04: Generar alerta de congestión/incidente]
+        UC05[UC05: Consultar estado de vías e intersecciones]
+        UC06[UC06: Administrar sensores y dispositivos IoT]
+        UC07[UC07: Integrar datos meteorológicos externos]
+    end
 
     Usuario --> UC02
     Usuario --> UC05
@@ -189,13 +189,14 @@ useCaseDiagram
     App --> UC02
     App --> UC05
     Externo --> UC07
-    UC04 ..> UC05 : <<include>>
-    UC02 ..> UC07 : <<include>>
+    UC04 -.-> UC05
+    UC02 -.-> UC07
 ```
 
 **Especificación narrativa de casos arquitectónicamente significativos:**
 
 #### UC04: Generar alerta de congestión/incidente
+
 1. El sensor IoT detecta una anomalía (velocidad < umbral o accidente visual).
 2. El Gateway IoT publica el evento en el bus de mensajes.
 3. El Procesador de Eventos valida y enriquece la alerta con contexto geoespacial.
