@@ -165,20 +165,20 @@ flowchart TB
 
 ```mermaid
 graph TD
-    Usuario[Usuario (Conductor/Peatón)]
+    Usuario[Usuario Conductor Peatón]
     Centro[Centro de Control]
     Sensor[Sistema de Sensores IoT]
     Externo[Servicios Externos]
     App[App Móvil]
 
     subgraph Sistema["Sistema Inteligente de Movilidad Urbana"]
-        UC01[UC01: Monitorear tráfico en tiempo real]
-        UC02[UC02: Calcular ruta óptima]
-        UC03[UC03: Gestionar semáforos inteligentes]
-        UC04[UC04: Generar alerta de congestión/incidente]
-        UC05[UC05: Consultar estado de vías e intersecciones]
-        UC06[UC06: Administrar sensores y dispositivos IoT]
-        UC07[UC07: Integrar datos meteorológicos externos]
+        UC01[UC01 Monitorear tráfico en tiempo real]
+        UC02[UC02 Calcular ruta óptima]
+        UC03[UC03 Gestionar semáforos inteligentes]
+        UC04[UC04 Generar alerta de congestión incidente]
+        UC05[UC05 Consultar estado de vías e intersecciones]
+        UC06[UC06 Administrar sensores y dispositivos IoT]
+        UC07[UC07 Integrar datos meteorológicos externos]
     end
 
     Usuario --> UC02
