@@ -404,10 +404,10 @@ graph TD
     end
 
     subgraph INFRA["Infrastructure as Code"]
-        I1[Docker Compose Dev]
-        I2[Kubernetes Prod]
-        I3[Terraform Cloud]
-        I4[CI CD GitHub Actions]
+        INF1[Docker Compose Dev]
+        INF2[Kubernetes Prod]
+        INF3[Terraform Cloud]
+        INF4[CI CD GitHub Actions]
     end
 
     R1 --> FRONTEND
@@ -416,9 +416,9 @@ graph TD
     R4 --> INFRA
 
     FRONTEND -->|npm install| B2
-    BACKEND -->|npm run build| I2
-    IOT -->|gradle build| I2
-    INFRA -->|terraform apply| I2
+    BACKEND -->|npm run build| INF2
+    IOT -->|gradle build| INF2
+    INFRA -->|terraform apply| INF2
 ```
 
 **Decisiones de desarrollo:**
