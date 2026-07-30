@@ -4,7 +4,8 @@
 **Asignatura:** Arquitectura de Software  
 **Caso:** Sistema Inteligente de Movilidad Urbana (Smart Mobility System)  
 **Enfoque metodológico:** Modelo 4+1 de Kruchten (1995) e ISO/IEC/IEEE 42010  
-**Referencia:** Módulo Arquitectura de Software – Universidad de Manizales
+**Referencia:** Módulo Arquitectura de Software – Universidad de Manizales  
+**Elaborado por:** Adelson Aguirre Rodriguez
 
 ---
 
