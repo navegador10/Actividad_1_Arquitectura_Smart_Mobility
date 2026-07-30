@@ -418,7 +418,7 @@ graph TD
     FRONTEND -->|npm install| B2
     BACKEND -->|npm run build| INF2
     IOT -->|gradle build| INF2
-    INFRA -->|terraform apply| INF2
+    INF3 -->|terraform apply| INF2
 ```
 
 **Decisiones de desarrollo:**
