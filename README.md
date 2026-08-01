@@ -205,37 +205,47 @@ flowchart TB
 ### 4.2. Vista de Casos de Uso (Escenarios)
 
 **Propósito:** Articular las demás vistas mediante escenarios reales de uso. Conecta la arquitectura con la experiencia operativa de los actores y permite validar que la solución responde a los requerimientos funcionales y no funcionales (Kruchten, 1995, p. 60; módulo, p. 99).
+```
+@startuml
+Left to right direction
 
-```mermaid
-useCaseDiagram
-    actor "Usuario (Conductor/Peatón)" as Usuario
-    actor "Centro de Control" as Centro
-    actor "Sistema de Sensores IoT" as Sensor
-    actor "Servicios Externos" as Externo
-    actor "App Móvil" as App
+actor "Usuario\n(Conductor/Peatón)" as Usuario
+actor "Centro de Control" as Centro
+actor "Sistema de Sensores IoT" as Sensor
+actor "Servicios Externos" as Externo
+actor "App Móvil" as App
 
-    rectangle "Sistema Inteligente de Movilidad Urbana" {
-        usecase "UC01: Monitorear tráfico en tiempo real" as UC01
-        usecase "UC02: Calcular ruta óptima" as UC02
-        usecase "UC03: Gestionar semáforos inteligentes" as UC03
-        usecase "UC04: Generar alerta de congestión/incidente" as UC04
-        usecase "UC05: Consultar estado de vías e intersecciones" as UC05
-        usecase "UC06: Administrar sensores y dispositivos IoT" as UC06
-        usecase "UC07: Integrar datos meteorológicos externos" as UC07
-    }
+rectangle "Sistema Inteligente de Movilidad Urbana" {
 
-    Usuario --> UC02
-    Usuario --> UC05
-    Centro --> UC01
-    Centro --> UC03
-    Centro --> UC06
-    Sensor --> UC01
-    Sensor --> UC04
-    App --> UC02
-    App --> UC05
-    Externo --> UC07
-    UC04 ..> UC05 : <<include>>
-    UC02 ..> UC07 : <<include>>
+    usecase "UC01\nMonitorear tráfico en tiempo real" as UC01
+    usecase "UC02\nCalcular ruta óptima" as UC02
+    usecase "UC03\nGestionar semáforos inteligentes" as UC03
+    usecase "UC04\nGenerar alerta de congestión/incidente" as UC04
+    usecase "UC05\nConsultar estado de vías e intersecciones" as UC05
+    usecase "UC06\nAdministrar sensores y dispositivos IoT" as UC06
+    usecase "UC07\nIntegrar datos meteorológicos externos" as UC07
+
+}
+
+Usuario --> UC02
+Usuario --> UC05
+
+App --> UC02
+App --> UC05
+
+Centro --> UC01
+Centro --> UC03
+Centro --> UC06
+
+Sensor --> UC01
+Sensor --> UC04
+
+Externo --> UC07
+
+UC04 ..> UC05 : <<include>>
+UC02 ..> UC07 : <<include>>
+
+@enduml
 ```
 
 **Especificación narrativa de casos arquitectónicamente significativos:**
