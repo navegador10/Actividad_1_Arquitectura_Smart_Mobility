@@ -205,7 +205,7 @@ flowchart TB
 ### 4.2. Vista de Casos de Uso (Escenarios)
 
 **Propósito:** Articular las demás vistas mediante escenarios reales de uso. Conecta la arquitectura con la experiencia operativa de los actores y permite validar que la solución responde a los requerimientos funcionales y no funcionales (Kruchten, 1995, p. 60; módulo, p. 99).
-```
+```mermaid
 @startuml
 Left to right direction
 
